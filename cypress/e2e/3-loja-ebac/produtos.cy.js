@@ -1,19 +1,29 @@
 /// <reference types="cypress"/>
+import produtosPage from "../../support/page-objects/produtos.page";
+
 
 describe('Funcionalidade: Produtos', () => {
 
     beforeEach(() => {
-        cy.visit('produtos')
+        produtosPage.visitarUrl()
     });
 
     it('Deve selecionar um produto da lista', () => {
-        cy.get('.products > .row')
-            //.first()
-            //.last()
-            //.eq(2)
-            .contains('Aero Daily Fitness Tee')
-            .click()
+        produtosPage.buscarProdutoLista('Beaumont Summit Kit')
+        cy.get('#tab-title-description > a').should('contain' , 'Descrição')
+    });
+    
+    it.only('Deve buscar um produto com sucesso', () => {
+        let produto = 'Zeppelin Yoga Pant'
+        produtosPage.buscarProduto(produto)
+        cy.get('.product_title').should('contain', produto)
+    });
 
-            cy.get('#tab-title-description > a').should('contain' , 'Descrição')
+    it('Deve visitar a página do produto', () => {
+        
+    });
+
+    it('Deve adicionar produto ao carrinho', () => {
+        
     });
 });
